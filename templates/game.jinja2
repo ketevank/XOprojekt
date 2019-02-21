@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+{#     <meta http-equiv="X-UA-Compatible" content="ie=edge"> #}
+    <title>Player: {{ playerId }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
+</head>
+<body>
+    <div class="content">
+        <div class="game">
+            <div id="js-1_1" class="cell"></div>
+            <div id="js-1_2" class="cell"></div>
+            <div id="js-1_3" class="cell"></div>
+            <div id="js-2_1" class="cell"></div>
+            <div id="js-2_2" class="cell"></div>
+            <div id="js-2_3" class="cell"></div>
+            <div id="js-3_1" class="cell"></div>
+            <div id="js-3_2" class="cell"></div>
+            <div id="js-3_3" class="cell"></div>
+        </div>
+        <div id="alertWin"></div>
+        <div id="whichPlayer"></div>
+        <div id="menu">
+            Nowa gra
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>
