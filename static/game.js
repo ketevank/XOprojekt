@@ -1,17 +1,26 @@
-//$('#js-click').click(function () {          //robi 'klikalny' div
-//    myAjax();
-//    console.log('click');
-//});
-
 interval = setInterval(myAjax, 1000);
 
 $(document).ready(function () {
     addAllCellEvents();
 });
 
+$('#gameslist').click(function () {
+    $.ajax({
+        url: '/cmd',
+        type: 'GET',
+        data: JSON.stringify({'cmd': cmd, 'data': data, 'playerid': playerId, 'sessionid': sessionID}),
+        success: function (result) {
+            renderGame(result)
+        },
+        error: function (err, s, exception) {
+            console.log(exception);
+        }
+    });
+})
+
 $('#menu').click(function () {
     $.ajax({
-        url: '/restart?playerid='+playerId,
+        url: '/restart?sessionid=' + sessionID,
         type: 'GET',
         error: function (err, s, exception) {
             console.log(exception);
@@ -39,7 +48,7 @@ function myAjax(cmd, data) {
         type: 'POST',
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify({'cmd': cmd, 'data': data, 'playerId': $.urlParam('playerid')}),  //todo include player id in request
+        data: JSON.stringify({'cmd': cmd, 'data': data, 'playerid': playerId, 'sessionid': sessionID}),
         success: function (result) {
             renderGame(result)
         },
@@ -50,27 +59,31 @@ function myAjax(cmd, data) {
 }
 
 function handleWin(result) {
-//todo render information about player that has won
     let players = result.players;
     for (let key in players) {
         let player = players[key];
         if (player.hasWinningPosition) {
-            clearInterval(interval);
             $("#alertWin").text("Wygrana: gracz " + player.sign);
         }
         if (player.scoreDraw) {
-            clearInterval(interval);
             $("#alertWin").text("Remis");
         }
     }
 }
 
 function renderGame(result) {
-    let currentPlayer = result.players.filter(function (player) {
+    let players = $.map(result.players, function (value, key) {
+        return value
+    });
+    let currentPlayer = players.filter(function (player) {
         return player != result.players[result.last_move_player_id]
     });
     $("#whichPlayer").text("Gracz " + result.players[playerId].sign);
-    $("#alertWin").text(currentPlayer[0].sign);
+    if (players.length < 2) {
+        $("#alertWin").text("Oczekiwanie na drugiego gracza");
+    } else {
+        $("#alertWin").text("Następny ruch: gracz " + currentPlayer[0].sign);
+    }
 
     renderAllMarks(result);
     handleWin(result);
@@ -107,3 +120,4 @@ $.urlParam = function (name) {
 }
 
 playerId = $.urlParam('playerid')
+sessionID = $.urlParam('sessionid')

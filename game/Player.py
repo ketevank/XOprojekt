@@ -7,7 +7,6 @@ class Player:
     hasWinningPosition = False
     scoreDraw = False
 
-    # todo add property for a player that has a winning position
     def __init__(self, sign: Sign):
         self.sign = sign.value
         self.marked_fields = []  # tablica zaznaczonych pól
@@ -21,11 +20,14 @@ class Player:
         elif len(self.marked_fields) == 5:
             self.scoreDraw = True
 
-    #     todo check if this move gave a player winning poisition and store this status
-
     def get_stats(self):
         stats = {'1r': 0, '2r': 0, '3r': 0, '1c': 0}
         pass
+
+    def clear(self):
+        self.marked_fields = []
+        self.hasWinningPosition = False
+        self.scoreDraw = False
 
     def count_x_in_line(self):
         maxResult = 0
