@@ -53,7 +53,7 @@ function renderGames(gameList) {
             type: 'GET',
             success: function (result) {
                 let playerId = result["playerid"];
-                window.open("/?sessionid=" + sessionId + "&playerid=" + playerId, '_blank');
+                window.open("/game?sessionid=" + sessionId + "&playerid=" + playerId, '_blank');
             },
             error: function (err, s, exception) {
                 console.log(exception);

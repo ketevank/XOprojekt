@@ -1,4 +1,4 @@
-interval = setInterval(myAjax, 1000);
+interval = setInterval(Ajax, 1000);
 
 $(document).ready(function () {
     addAllCellEvents();
@@ -38,11 +38,11 @@ function addAllCellEvents() {
 
 function addCellEvent(x, y) {
     $('#js-' + x + '_' + y).click(function () {
-        myAjax('mark', {x: x, y: y});
+        Ajax('mark', {x: x, y: y});
     });
 }
 
-function myAjax(cmd, data) {
+function Ajax(cmd, data) {
     $.ajax({
         url: '/cmd',
         type: 'POST',

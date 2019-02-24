@@ -6,10 +6,9 @@ import json
 
 class Game:
 
-
     def __init__(self):
         self.last_move_player_id = round(random.random())
-        self.players = {}  # tablica graczy
+        self.players = {}
         self.turn = ''
 
     def make_response(self):

@@ -14,6 +14,11 @@ def newSession():
     games[sessionId] = Game()
     return sessionId
 
+@app.route('/game', methods=['GET', 'POST'])
+def game():
+    return render_template('game.jinja2')
+
+
 
 @app.route('/list', methods=['GET', 'POST'])
 def list():
@@ -32,7 +37,12 @@ def restart():
 
 @app.route('/', methods=['GET', 'POST'])
 def gameBoard():
-    return render_template('game.jinja2', wynik='')
+    return render_template('listOfGames.jinja2')
+
+
+# @app.route('/', methods=['GET', 'POST'])
+# def gameBoard():
+#     return render_template('game.jinja2', wynik='')
 
 
 @app.route('/cmd', methods=['POST'])
